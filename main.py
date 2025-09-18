@@ -42,11 +42,16 @@ def main():
         for object in drawable:
             object.draw(screen)
         
-        # Ends game if an asteroid collides with a player
+        # Ends game if an asteroid collides with a player, and checks for shots collision to kill objects
         for object in asteroids:
             if object.check_collision(curr_player):
                 print("Game Over")
                 sys.exit()
+            
+            for shot in shots:
+                if object.check_collision(shot):
+                    object.split()
+                    shot.kill()
 
         pygame.display.flip()
         dt = clock.tick(60) / 1000
